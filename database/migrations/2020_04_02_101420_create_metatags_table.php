@@ -16,10 +16,10 @@ class CreateMetatagsTable extends Migration
         Schema::create('metatags', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('descripation')->nullable();
-            $table->integer('status')->default(0);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->text('descripation')->nullable();
+            $table->tinyinteger('status')->default(1);
+            $table->tinyinteger('created_by')->nullable();
+            $table->tinyinteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

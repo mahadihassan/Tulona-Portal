@@ -47,13 +47,19 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         $user = Auth::user();
-        $data = [
-            'name' => $request->input('name'),
-            'descripation' => $request->input('descripation'),
-            'status' => $request->input('published'),
-            'created_by' => $user->id,
-        ];
-        Brand::create($data);
+
+        $brand = new Brand;
+        $brand->name = $request->input('name');
+        $brand->descripation = $request->input('descripation');
+        if($file = $request->file('image'))
+        {
+            $name = rand().$file->getClientOriginalName();
+            $file->move(public_path('Image/Brand'), $name);
+            $brand->logo = $name;
+        }
+        $brand->status = $request->input('published');
+        $brand->created_by = $user->id;
+        $brand->save();
         session()->flash('message', 'Brand Create Successfully');
         return redirect('admin/brand');
     }
@@ -92,13 +98,21 @@ class BrandController extends Controller
     {
         $user = Auth::user();
         $brand =Brand::find($id);
-        $data = [
-            'name' => $request->input('name'),
-            'descripation' => $request->input('descripation'),
-            'status' => $request->input('published'),
-            'updated_by' => $user->id,
-        ];
-        $brand->update($data);
+        $brand->name = $request->input('name');
+        $brand->descripation = $request->input('descripation');
+        if($file = $request->file('image'))
+        {
+            $name = "";
+            $album = $brand->logo;
+            $filename = public_path() . '/Image/Brand/' . $album;
+            \File::delete($filename);
+            $name = rand().$file->getClientOriginalName();
+            $file->move(public_path('Image/Brand'), $name);
+            $brand->logo = $name;
+        }
+        $brand->status = $request->input('published');
+        $brand->updated_by = $user->id;
+        $brand->save();
         session()->flash('message', 'Brand Update Successfully');
         return redirect('admin/brand');
     }
@@ -112,6 +126,9 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $brand = Brand::find($id);
+        $album = $brand->logo;
+        $filename = public_path() . '/Image/Brand/' . $album;
+        \File::delete($filename);
         $brand->delete();
         session()->flash('message', 'Brand Delete Successfully');
         return redirect('admin/brand');

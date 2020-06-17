@@ -12,103 +12,54 @@
             <div class="container">
             <div class="row">
             	
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="form-group  my-3">
-                <label>Attribute Name</label>
-                    <select class="form-control" name="attribute_name">
-                      <option value="0">Select Name</option>
-                      @foreach($product as $products)
-                      @for($i =0; $i<1; ++$i)
-                        @foreach($products->attributes[$i] as $value)
-                          <option value="{{$value}}" >{{$value}}</option>
-                        @endforeach
-                      @endfor
-                      @endforeach
-                  </select>
-                  </div>
-              </div>
-
-               <div class="col-md-3">
-                <div class="form-group  my-3">
-                <label>Attribute value</label>
-                    <select class="form-control" name="attribute_value">
-                      <option value="0">Select value</option>
-                      @foreach($product as $products)
-                      @for($i =1; $i<2; ++$i)
-                        @foreach($products->attributes[$i] as $value)
-                          <option value="{{$value}}" >{{$value}}</option>
-                        @endforeach
-                      @endfor
-                      @endforeach
-                  </select>
-                  </div>
-              </div>
-
-               <div class="col-md-3">
-                <div class="form-group  my-3">
-                <label>Attribute Unit</label>
-                    <select class="form-control" name="attribute_unit">
-                      <option value="0">Select Unit</option>
-                      @foreach($product as $products)
-                      @for($i =2; $i<3; ++$i)
-                        @foreach($products->attributes[$i] as $value)
-                          <option value="{{$value}}" >{{$value}}</option>
-                        @endforeach
-                      @endfor
-                      @endforeach
-                  </select>
-                  </div>
-              </div>
-
-              
-{{--
-              <div class="col-md-3">
-                <div class="form-group  my-3">
-                <label>Category</label>
-                    <select class="form-control" name="category_id">
-                      <option value="0">Select Category</option>
-                      @foreach($category as $categorys)
-                          <option value="{{$categorys->id}}" >{{$categorys->name}}</option>
+                <label>Attribute Groups</label>
+                    <select class="form-control" name="attribute_group_id">
+                      <option value="0">Select Attribute Groups</option>
+                      @foreach($attributeGroup as $attributeGroups)
+                          <option value="{{$attributeGroups->id}}" >{{$attributeGroups->name}}</option>
                         @endforeach
                   </select>
                   </div>
               </div>
 
-            	<div class="col-md-3">
+            	<div class="col-md-4">
             		<div class="form-group  my-3">
-            		<label>Brand</label>
-                    <select class="form-control" name="brand_id">
-                    	<option value="0">Select Brand</option>
-                    	@foreach($brand as $brands)
-                      		<option value="{{$brands->id}}" >{{$brands->name}}</option>
-                      	@endforeach
+            		<label>Attribute</label>
+                    <select class="form-control" name="attribute_id">
+                    	<option value="0">Select Attribute</option>
+                    	@foreach($attribute as $attributes)
+                      	<option value="{{$attributes->id}}" >{{$attributes->name}}</option>
+                      @endforeach
                   </select>
                   </div>
             	</div>
 
-            	<div class="col-md-3">
+            	<div class="col-md-4">
             		<div class="form-group my-3">
-            		<label>Product Type</label>
-                    <select class="form-control" name="product_type_id">
-                    	<option value="0">Select Product Type</option>
-                    	@foreach($producttype as $producttypes)
-                      		<option value="{{$producttypes->id}}" >{{$producttypes->name}}</option>
-                      	@endforeach
+            		<label>Unit</label>
+                    <select class="form-control" name="unit_id">
+                    	<option value="0">Select Unit</option>
+                    	@foreach($unit as $units)
+                      	<option value="{{$units->id}}" >{{$units->name}}</option>
+                      @endforeach
                   </select>
                   </div>
             	</div>
-            	<div class="col-md-3">
+              {{--
+            	<div class="col-md-2">
             		<div class="form-group my-3">
-            		<label>Company</label>
-                    <select class="form-control" name="company_id">
-                    	<option value="0">Select Company</option>
-                    	@foreach($company as $companys)
-                      		<option value="{{$companys->id}}" >{{$companys->name}}</option>
-                      	@endforeach
-                  </select>
+            		<label>Price From</label>
+                    <input type="number" name="fprice" class="form-control" placeholder="Price">
                   </div>
             	</div>
-              --}}
+              <div class="col-md-2">
+                <div class="form-group my-3">
+                <label>Price to</label>
+                  <input type="number" name="tprice" class="form-control" placeholder="Price">
+                  </div>
+              </div>--}}
             <button class="btn btn-primary btn-block" type="submit">Submit</button>
         </form>
       </div>
@@ -132,18 +83,17 @@
 	                  <th>Serial</th>
 	                  <th>Name</th>
 	                  <th>Category</th>
-	                  <th>Product Type</th>
-	                  <th>Brand</th>
+                    <th>Product Type</th>
 	                  <th>Company</th>
 	                  <th>Image</th>
-	                  <th>price</th>
+	                  <th>MRP</th>
 	                  <th>published</th>
 	                </tr>
                 </thead>
                 <tbody>
 	                @foreach($product as $key => $products)
 		                <tr>
-		                  <td class="col-sm-2">
+		                  <td class="col">
                             <form action="{{route('admin.product.destroy', $products->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -152,23 +102,22 @@
                                 <a href="{{route('admin.product.show', $products->id)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
                             </form>
                         	</td>
-		                  <td>{{++$key}}</td>
-		                  <td>{{$products->name}}</td>
-		                  <td>{{cat($products->categorys_id, $i=0)}}</td>
-		                  <td>{{$products->producttype->name}}</td>
-		                  <td>{{$products->brand->name}}</td>
-		                  <td>{{$products->company->name}}</td>
-		                  <td>
+		                  <td class="col">{{++$key}}</td>
+		                  <td class="col">{{$products->name}}</td>
+		                  <td class="col">{{cat($products->categorys_id, $i=0)}}</td>
+		                  <td class="col">{{$products->producttype->name}}</td>
+		                  <td class="col">{{$products->company->name}}</td>
+		                  <td class="col">
 		                  	@php
-		                  		$dd =$products->image;
-		                  		$data = explode(',', $dd);
+                          //Product Helpers Function productImage Function Call.
+		                  		$data = productImage($products->id);
 		                  	@endphp
-		                  	@foreach($data as $value)
-		                  		<img style="width:100%;" class="img-responsive my-2" src="{{ asset('Image/Product') }}/{{ $value }}">
-		                  	@endforeach
+                        @foreach($data as $value)
+		                  		<img style="width:100%;" class="img-responsive my-2" src="{{ asset('Image/Product') }}/{{ $value->image }}">
+                        @endforeach
 		                  </td>
-		                  <td>{{$products->price}}</td>
-		                  <td>
+		                  <td class="col">{{$products->mrp}}</td>
+		                  <td class="col">
 		                  	@if($products->status == 1)
 		                  		<span>Yes</span>
 		                  	@else
@@ -176,21 +125,19 @@
 		                  	@endif
 		                  </td>
 		                </tr>
-		                @endforeach
-		             
+		              @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
 	                  <th>Action</th>
-	                  <th>Serial</th>
-	                  <th>Name</th>
-	                  <th>Category</th>
-	                  <th>Product Type</th>
-	                  <th>Brand</th>
-	                  <th>Company</th>
-	                  <th>Image</th>
-	                  <th>price</th>
-	                  <th>published</th>
+                    <th>Serial</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Product Type</th>
+                    <th>Company</th>
+                    <th>Image</th>
+                    <th>MRP</th>
+                    <th>published</th>
 	                </tr>
                 </tfoot>
               </table>

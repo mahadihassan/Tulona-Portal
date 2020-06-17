@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 150)->nullable();
+            $table->integer('attribute_group_id')->nullable();
             $table->string('descripation')->nullable();
-            $table->integer('status')->default(0);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->tinyinteger('status')->default(1);
+            $table->tinyinteger('created_by')->nullable();
+            $table->tinyinteger('updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('attributes');
     }
 }

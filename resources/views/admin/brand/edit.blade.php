@@ -18,7 +18,7 @@
                           </ul>
                   </div>
               @endif
-              <form role="form" method="post" action="{{route('admin.brand.update', $brand->id)}}">
+              <form role="form" method="post" action="{{route('admin.brand.update', $brand->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
@@ -31,6 +31,17 @@
                   <div class="form-group">
                     <label for="descripation">Descripation</label>
                     <textarea class="form-control" name="descripation" id="descripation" rows="4">{{$brand->descripation}}</textarea>
+                  </div>
+
+                  @if(empty($brand->logo))
+
+                  @else
+                    <img style="width:20%;" class="img-responsive my-2" src="{{ asset('Image/Brand') }}/{{ $brand->logo }}">
+                  @endif
+                   <div class="form-group">
+                    <label for="file">Logo</label>
+                      <input type="file" class="form-control-file" name="image" id="file">
+                      <small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg</font></small>
                   </div>
 
                   <div class="form-group">

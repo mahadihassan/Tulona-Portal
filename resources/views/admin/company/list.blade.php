@@ -25,27 +25,39 @@
 	                  <th>Action</th>
 	                  <th>Serial</th>
 	                  <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Image</th>
 	                  <th>published</th>
 	                </tr>
                 </thead>
                 <tbody>
 	                @foreach($company as $key => $companys)	
 		                <tr>
-		                  <td>
+		                  <td class="col-md-2">
                             <form action="{{route('admin.company.destroy', $companys->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger alert-danger" onclick="return confirm('Are you sure?')"  type="submit"><i class="fas fa-trash"></i></button>
                                 <a href="{{route('admin.company.edit', $companys->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             </form>
-                        	</td>
+                          </td>
 		                  <td>{{++$key}}</td>
 		                  <td>{{$companys->name}}</td>
+                      <td>{{$companys->email}}</td>
+                      <td>{{$companys->phone}}</td>
+                      <td>
+                            @if(empty($companys->logo))
+
+                            @else
+                              <img style="width:100%;" class="img-responsive my-2" src="{{ asset('Image/Company') }}/{{ $companys->logo }}"></td>
+                            @endif
+                        </td>
 		                  <td>
 		                  	@if($companys->status == 1)
-		                  		<span>Yes</span>
+		                  		<span class="badge badge-success">Yes</span>
 		                  	@else
-		                  		<span>No</span>
+		                  		<span class="badge badge-danger">No</span>
 		                  	@endif
 		                  </td>
 		                

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use App\Category;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoryController extends Controller
 {
@@ -50,6 +52,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+        $user = Auth::user();
         $category = new Category;
         if($request->category_id==0)
         {
@@ -57,6 +60,7 @@ class CategoryController extends Controller
             $category->name = $request->input('name');
             $category->descripation = $request->input('descripation');
             $category->status = $request->input('published');
+            $category->created_by = $user->id;
             $category->save();
         }
         else{
@@ -64,6 +68,7 @@ class CategoryController extends Controller
             $category->name = $request->input('name');
             $category->descripation = $request->input('descripation');
             $category->status = $request->input('published');
+            $category->created_by = $user->id;
             $category->save();   
         }
         session()->flash('message', 'Category Create Successfully');
@@ -105,6 +110,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
+        $user = Auth::user();
         $category =Category::find($id);
         if($request->category_id==0)
         {
@@ -112,6 +118,7 @@ class CategoryController extends Controller
             $category->name = $request->input('name');
             $category->descripation = $request->input('descripation');
             $category->status = $request->input('published');
+            $category->updated_by = $user->id;
             $category->save();
         }
         else{
@@ -119,6 +126,7 @@ class CategoryController extends Controller
             $category->name = $request->input('name');
             $category->descripation = $request->input('descripation');
             $category->status = $request->input('published');
+            $category->updated_by = $user->id;
             $category->save();   
         }
         session()->flash('message', 'Category Update Successfully');

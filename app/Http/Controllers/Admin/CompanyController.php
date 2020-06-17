@@ -40,13 +40,21 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request)
     {
         $user = Auth::user();
-        $data = [
-            'name' => $request->input('name'),
-            'descripation' => $request->input('descripation'),
-            'status' => $request->input('published'),
-            'created_by' => $user->id,
-        ];
-        Company::create($data);
+        $company = new Company;
+        $company->name = $request->input('name');
+        $company->email = $request->input('email');
+        $company->phone = $request->input('phone');
+        $company->website_link = $request->input('website_link');
+        if($file = $request->file('image'))
+        {
+            $name = rand().$file->getClientOriginalName();
+            $file->move(public_path('Image/Company'), $name);
+            $company->logo = $name;
+        }
+        $company->address = $request->input('address');
+        $company->descripation = $request->input('descripation');
+        $company->created_by = $user->id;
+        $company->save();
         session()->flash('message', 'Company Create Successfully');
         return redirect('admin/company');
     }
@@ -84,14 +92,25 @@ class CompanyController extends Controller
     public function update(CompanyRequest $request, $id)
     {
         $user = Auth::user();
-        $company =Company::find($id);
-        $data = [
-            'name' => $request->input('name'),
-            'descripation' => $request->input('descripation'),
-            'status' => $request->input('published'),
-            'updated_by' => $user->id,
-        ];
-        $company->update($data);
+        $company = Company::find($id);
+        $company->name = $request->input('name');
+        $company->email = $request->input('email');
+        $company->phone = $request->input('phone');
+        $company->website_link = $request->input('website_link');
+        if($file = $request->file('image'))
+        {
+            $name = "";
+            $album = $company->logo;
+            $filename = public_path() . '/Image/Company/' . $album;
+            \File::delete($filename);
+            $name = rand().$file->getClientOriginalName();
+            $file->move(public_path('Image/Company'), $name);
+            $company->logo = $name;
+        }
+        $company->address = $request->input('address');
+        $company->descripation = $request->input('descripation');
+        $company->updated_by = $user->id;
+        $company->save();
         session()->flash('message', 'Company Update Successfully');
         return redirect('admin/company');
     }
@@ -105,6 +124,9 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::find($id);
+        $album = $company->logo;
+        $filename = public_path() . '/Image/Company/' . $album;
+        \File::delete($filename);
         $company->delete();
         session()->flash('message', 'Company Delete Successfully');
         return redirect('admin/company');

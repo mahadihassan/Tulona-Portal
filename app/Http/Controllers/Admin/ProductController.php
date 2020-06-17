@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Category;
 use App\Brand;
 use App\Product;
@@ -13,6 +14,11 @@ use App\Metatag;
 use App\Company;
 use App\Country;
 use App\Unit;
+use App\Attribute;
+use App\AttributeGroup;
+use App\ProductImage;
+use App\ProductVideo;
+use App\ProductAttribute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input as input;
@@ -31,13 +37,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-        $company = Company::all();
-        $producttype = ProductType::all();
-        $brand = Brand::all();
-        $product = Product::all();
-       // $product = Product::whereJsonContains('attributes', 'TB')->OrwhereJsonContains('attributes', 'camara')->get();
-        return view('admin.product.list', compact('product', 'category', 'company', 'producttype', 'brand'));
+        $data['attributeGroup'] =AttributeGroup::all();
+        $data['attribute'] =Attribute::all();
+        $data['unit'] = Unit::all();
+        $data['product'] = Product::all();
+        return view('admin.product.list', $data);
     }
 
     /**
@@ -46,15 +50,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category = Category::where('category_id', 0)->get();
-        $product_type = ProductType::all();
-        $company = Company::all();
-        $brand = Brand::all();
-        $country = Country::all();
-        $meta = Metatag::all();
-        $unit = Unit::all();
-        $attribute = DB::table('products_attribute')->get();
-        return view('admin.product.create', compact('category', 'product_type', 'company', 'brand', 'country', 'meta', 'attribute', 'unit'));
+        $data['category'] = Category::where('category_id', 0)->get();
+        $data['product_type'] = ProductType::all();
+        $data['company'] = Company::all();
+        $data['brand'] = Brand::all();
+        $data['country'] = Country::all();
+        $data['meta'] = Metatag::all();
+        $data['unit'] = Unit::all();
+        $data['attribute'] = Attribute::all();
+        $data['attributeGroup'] = AttributeGroup::all();
+        return view('admin.product.create',$data);
     }
 
     /* Store a newly created resource in storage.
@@ -70,20 +75,7 @@ class ProductController extends Controller
         $meta_tag = $request->input('meta_tag');
         $meta_tagcase = array_map('strtolower',$meta_tag);
         $meta_diff = array_diff($meta_tagcase, $meta);
-
-        //Attribut Table data Difference;
-        $attribute = DB::table('products_attribute')->pluck('name')->toArray();
-        $attribute_name = $request->input('att_name');
-        $attribute_value = $request->input('att_value');
-        $attribute_unit = $request->input('att_unit');
-
-        /*$attribute_value = $request->input('attribute_value');
-        $unit = $request->input('unit');
-        $attribute_combain = array_combine($attribute_name, $attribute_value);*/
-        //$array_att = array($attribute_name);
-        $all_attribute = array($attribute_name, $attribute_value, $attribute_unit);
-        $attribute_namecase = array_map('strtolower',$attribute_name);
-        $attribute_diff = array_diff($attribute_namecase, $attribute);
+       
         $product = new Product;
         $product->name = $request->input('name');
         $product->featured = $request->has('featured') ? 1 : 0;
@@ -93,16 +85,6 @@ class ProductController extends Controller
         $product->companies_id = $request->input('company');
         $product->model = $request->input('model');
         $product->mrp = $request->input('mrp');
-        if($file = $request->file('image'))
-        {
-            foreach ($file as $files) {
-                $name = rand().$files->getClientOriginalName();
-                $files->move(public_path('Image/Product'), $name);
-                $image[] = $name;
-            }
-            $product->image = implode(',', $image);
-        }
-        $product->attributes = $all_attribute;
         $product->short_descripation = $request->input('short_descripation');
         $product->long_descripation = $request->input('long_descripation');
         $product->countrys_id = $request->input('country');
@@ -110,17 +92,58 @@ class ProductController extends Controller
         $product->status = $request->input('published');
         $product->created_by = $user->id;
         $product->save();
-        if(!empty($attribute_diff))
+
+        // Insert Product Image Table Data
+        $files = $request->file('image');
+        $image_title = $request->input('image_title');
+        for($i =0; $i< count($image_title); $i++)
         {
-            foreach ($attribute_diff as $key => $value) {
-                $data = DB::table('products_attribute')->insert([
-                    'name'=> $value,
+            if(!empty($files[$i]))
+            {
+                if($file = $files[$i])
+                {
+                    $name = rand().$file->getClientOriginalName();
+                    $path = $file->move(public_path('Image/Product'), $name);
+                    $size = $path->getSize();
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'title' => isset($image_title[$i]) ? $image_title[$i] : '',
+                        'image' => isset($name) ? $name : 0,
+                        'size' => isset($size) ? $size : 0,
+                        'created_by'=> $user->id,
+                    ]);
+                }
+            }
+        }
+
+        //Insert Product Attributs Table Data
+        $input = $request->input('attributeGroup');
+        for ($i=0; $i < count($input); $i++) { 
+            if(!empty($request->attributeGroup[$i]) && !empty($request->attribute[$i]))
+            {  
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_group_id' => $request->attributeGroup[$i],
+                    'attribute_id' =>isset($request->attribute[$i]) ? $request->attribute[$i] : 0,
+                    'unit_id' => isset($request->unit[$i]) ? $request->unit[$i] : 0 ,
+                    'price_increment' => isset($request->price[$i]) ? $request->price[$i] : 0,
+                    'qty' => isset($request->qty[$i]) ? $request->qty[$i] : 0,
+                    'created_by'=> $user->id,
                 ]);
             }
         }
+        // Insert Product Videos Table Data
+        DB::table('product_videos')->insert([
+            'product_id' => $product->id,
+            'title' => $request->input('video_title'),
+            'video_link' => $request->input('video_link'),
+            'created_by' => $user->id,
+        ]);
+        // Insert Meta Tag Table Data
         foreach ($meta_diff as $key => $value) {
-            $data = DB::table('metatags')->insert([
+            DB::table('metatags')->insert([
                 'name'=> $value,
+                'created_by'=> $user->id,
             ]);
         }
         session()->flash('message', 'Product Create Successfully');
@@ -147,15 +170,21 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::all();
-        $product_type = ProductType::all();
-        $company = Company::all();
-        $brand = Brand::all();
-        $country = Country::all();
-        $meta = Metatag::all();
-        $attribute = DB::table('products_attribute')->get();
+        $data['category'] = Category::all();
+        $data['product_type'] = ProductType::all();
+        $data['company'] = Company::all();
+        $data['brand'] = Brand::all();
+        $data['country'] = Country::all();
+        $data['meta'] = Metatag::all();
+        $data['unit'] = Unit::all();
+        $data['attribute'] = Attribute::all();
+        $data['attribute_group'] = AttributeGroup::all();
         $product = Product::find($id);
-        return view('admin.product.edit', compact('category', 'product_type', 'company', 'brand', 'country', 'meta', 'attribute', 'product'));
+        $products = $product->id;
+        $product_video = ProductVideo::where('product_id', $products)->first();
+        $data['product_image'] = ProductImage::where('product_id', $products)->get();
+        $data['product_attribute'] = ProductAttribute::where('product_id', $products)->get();
+        return view('admin.product.edit', $data, compact('product', 'product_video'));
     }
 
     /**
@@ -165,90 +194,118 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductUpdateRequest $request, $id)
     {
-         $role =[
-            'name'=> 'required',
-            'category_id'=> 'required',
-            'product_type'=> 'required',
-            'brand_id'=> 'required',
-            'company'=> 'required',
-            'model' => 'required',
-            'mrp' => 'required',
-            'price' => 'required',
-            'model' => 'required',
-            'short_descripation' => ['required','string', 'max:200'],
-            'country' => 'required',
-        ];
-        $customMessages = [
-            'name.required' => 'Name field is required',
-            'category_id.required' => 'Category Name field is required',
-            'product_type.required' => 'Product Type field is required',
-            'brand_id.required' => 'Brand field is required',
-            'company.required' => 'Company field is required',
-            'model.required' => 'Product Model field is required',
-            'mrp.required' => 'MRP Field is required',
-            'price.required' => 'Price Field is required',
-            'short_descripation.required' => 'short descripation Field is required',
-            'country.required' => 'Country Field is required',
-        ];
-        $this->validate($request, $role, $customMessages);
         $user = Auth::user();
-        $attribute = DB::table('products_attribute')->pluck('name')->toArray();
-        $meta = Metatag::pluck('name')->toArray();
-        $meta_tag = $request->input('meta_tag');
-        $meta_tagcase = array_map('strtolower',$meta_tag);
-        $meta_diff = array_diff($meta_tagcase, $meta);
-        $attribute_name = $request->input('attribute_name');
-        $attribute_namecase = array_map('strtolower',$attribute_name);
-        $attribute_diff = array_diff($attribute_namecase, $attribute);
-        $attribute_value = $request->input('attribute_value');
-        $attribute_values =array_filter($attribute_value); 
-        $com = array_combine($attribute_namecase,$attribute_values);
         $product =Product::find($id);
         $product->name = $request->input('name');
-        $product->categorys_id = $request->input('name');
-        $product->categorys_id = $request->input('category_id');
-        $product->product_types_id = $request->input('product_type');
+        $product->featured = $request->has('featured') ? 1 : 0;
         $product->brands_id = $request->input('brand_id');
-        $product->companies_id = $request->input('company');
+        $product->companies_id = $request->input('company_id');
+        $product->product_types_id = $request->input('product_type_id');
+        $product->categorys_id = $request->input('category_id');
+        $product->countrys_id = $request->input('country_id');
         $product->model = $request->input('model');
         $product->mrp = $request->input('mrp');
-        $product->price = $request->input('price');
-        if($file = $request->file('image'))
-        {
-            $productfile =$product->image;
-            $deletefile = explode(',', $productfile);
-            foreach ($deletefile as $files) {
-                $filename = public_path() . '/Image/Product/' . $files;
-                \File::delete($filename);
-            }
-            foreach ($file as $files) {
-                $name = rand().$files->getClientOriginalName();
-                $files->move(public_path('Image/Product'), $name);
-                $image[] = $name;
-            }
-            $product->image = implode(',', $image);
-        }
-        $product->attributes =$com;
+        $product->meta_tag =implode(',', $request->meta_tag);
         $product->short_descripation = $request->input('short_descripation');
         $product->long_descripation = $request->input('long_descripation');
-        $product->countrys_id = $request->input('country');
-        $product->meta_tag =implode(',', $meta_tag);
         $product->status = $request->input('published');
-        $product->created_by = $user->id;
+        $product->updated_by = $user->id;
         $product->save();
-        foreach ($attribute_diff as $key => $value) {
-            $data = DB::table('products_attribute')->insert([
-                'name'=> $value,
-            ]);
+
+        //Product Video Table Update.
+        $product_video = ProductVideo::where('product_id', $product->id)->first();
+        $product_video->title = $request->input('video_title');
+        $product_video->video_link = $request->input('video_link');
+        $product_video->updated_by = $user->id;
+        $product_video->save();
+
+        //Product Image Table Data Update 
+        $image_input = $request->all('productImageId');
+        foreach ($image_input as $value) {
+            foreach ($value as  $row) {
+                $product_image = ProductImage::find($row['id']);
+                if(!empty($row['image']))
+                {
+                    if($file =$row['image'])
+                    {           
+                        $name = " ";
+                        $album = $product_image->image;
+                        $filename = public_path() . '/Image/Product/' . $album;
+                        \File::delete($filename);
+                        $name = rand().$file->getClientOriginalName();
+                        $path = $file->move(public_path('Image/Product'), $name);
+                        $size = $path->getSize();
+                        $product_image->image = $name;
+                    }
+                    $product_image->size = $size;
+                    $product_image->title = $row['image_title'];
+                    $product_image->updated_by = $user->id;
+                    $product_image->save();
+                }
+                else
+                {
+                    $product_image->title = $row['image_title'];
+                    $product_image->updated_by = $user->id;
+                    $product_image->save();
+                }
+            }
         }
-        foreach ($meta_diff as $key => $value) {
-            $data = DB::table('metatags')->insert([
-                'name'=> $value,
-            ]);
+
+        // Insert Product Image Table Data
+        $files = $request->file('newImage');
+        $image_title = $request->input('newImageTitle');
+        for($i =0; $i< count($image_title); $i++)
+        {
+            if(!empty($files[$i]))
+            {
+                if($file = $files[$i])
+                {
+                    $name = rand().$file->getClientOriginalName();
+                    $path = $file->move(public_path('Image/Product'), $name);
+                    $size = $path->getSize();
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'title' => isset($image_title[$i]) ? $image_title[$i] : '',
+                        'image' => isset($name) ? $name : 0,
+                        'size' => isset($size) ? $size : 0,
+                        'created_by'=> $user->id,
+                    ]);
+                }
+            }
         }
-        session()->flash('message', 'Product Create Successfully');
+
+        //Product Attribute Table Update 
+        $input = $request->input('productAttributeId');
+        foreach ($input as  $row) {
+            $product_attribute = ProductAttribute::find($row['id']);
+            $product_attribute->attribute_group_id = $row['attributeGroup'];
+            $product_attribute->attribute_id = $row['attribute'];
+            $product_attribute->unit_id = $row['unit'];
+            $product_attribute->price_increment  = $row['price'];
+            $product_attribute->qty = $row['qty'];
+            $product_attribute->updated_by = $user->id;
+            $product_attribute->save();
+        }
+
+        // Product Attribute Table New Data Create.
+        $inputs = $request->input('newAttributeGroup');
+        for ($i=0; $i < count($inputs); $i++) { 
+            if(!empty($request->newAttributeGroup[$i]) && !empty($request->newAttribute[$i]))
+            {  
+                ProductAttribute::create([
+                    'product_id' => $product->id,
+                    'attribute_group_id' => $request->newAttributeGroup[$i],
+                    'attribute_id' => $request->newAttribute[$i],
+                    'unit_id' => isset($request->newUnit[$i]) ? $request->newUnit[$i] : 0,
+                    'qty' => isset($request->newQty[$i]) ? $request->newQty[$i] : 0,
+                    'price_increment' => isset($request->newPrice[$i]) ? $request->newPrice[$i] : 0,
+                    'created_by'=> $user->id,
+                ]);
+            }
+        }
+        session()->flash('message', 'Product Update Successfully');
         session()->flash('type', 'success');
         return redirect('admin/product');
     }

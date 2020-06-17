@@ -25,33 +25,35 @@ class ProductRequest extends FormRequest
     {
         return [
             'name'=> 'required',
-            'category_id'=> 'required',
-            'product_type'=> 'required',
             'brand_id'=> 'required',
             'company'=> 'required',
+            'product_type'=> 'required',
+            'category_id'=> 'required',
+            'country' => 'required',
             'model' => 'required',
             'mrp' => 'required',
             'model' => 'required',
             'image' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_tag' => 'required',
             'short_descripation' => ['required','string', 'max:200'],
-            'country' => 'required',
         ];
     }
-    public function message()
+    public function messages()
     {
         return [
             'name.required' => 'Product Name field is required',
-            'category_id.required' => 'Parent Category field is required',
-            'product_type.required' => 'Product Type field is required',
             'brand_id.required' => 'Brand field is required',
             'company.required' => 'Company field is required',
+            'product_type.required' => 'Product Type field is required',
+            'category_id.required' => 'Parent Category field is required',
+            'country.required' => 'Country Field is required',
             'model.required' => 'Product Model field is required',
             'mrp.required' => 'MRP Field is required',
             'image.required' => 'Image Field is required',
-            'short_descripation.required' => 'short descripation Field is required',
-            'country.required' => 'Country Field is required',
-            'meta_tag.required' => 'Country Field is required',
+            'meta_tag.required' => 'Meta Tag Field is required',
+            'short_descripation.required' => 'Short descripation Field is required',
+            
         ];
     }
 }

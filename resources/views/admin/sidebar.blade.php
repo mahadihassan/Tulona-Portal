@@ -2,10 +2,10 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{route('admin.index')}}" class="brand-link">
       <img src="{{asset('backend/image/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Tulona Portal</span>
     </a>
 
     <!-- Sidebar -->
@@ -47,6 +47,110 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.product.create') || Route::currentRouteName() == ('admin.product.index') || Route::currentRouteName() == ('admin.product.edit') || Route::currentRouteName() == ('admin.pageproduct') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-share"></i>
+              <p>
+                Product
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.product.create')}}" class=" {{  Route::currentRouteName() == ('admin.product.create') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.product.index')}}" class="{{  Route::currentRouteName() == ('admin.product.index') ||  Route::currentRouteName() == ('admin.product.edit') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+              {{--<li class="nav-item">
+                <a href="{{route('admin.pageproduct')}}" class="{{  Route::currentRouteName() == ('admin.pageproduct') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Product Category</p>
+                </a>
+              </li>--}}
+            </ul>
+          </li>
+
+
+          <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.attributegroups.create') || Route::currentRouteName() == ('admin.attributegroups.index') || Route::currentRouteName() == ('admin.attributegroups.edit') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-box"></i>
+              <p>
+                Attributs Group
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.attributegroups.create')}}" class=" {{  Route::currentRouteName() == ('admin.attributegroups.create') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.attributegroups.index')}}" class="{{  Route::currentRouteName() == ('admin.attributegroups.index') ||  Route::currentRouteName() == ('admin.attributegroups.edit') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+           <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.attributes.create') || Route::currentRouteName() == ('admin.attributes.index') || Route::currentRouteName() == ('admin.attributes.edit') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Attribut
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.attributes.create')}}" class=" {{  Route::currentRouteName() == ('admin.attributes.create') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.attributes.index')}}" class="{{  Route::currentRouteName() == ('admin.attributes.index') ||  Route::currentRouteName() == ('admin.attributes.edit') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.unit.create') || Route::currentRouteName() == ('admin.unit.index') || Route::currentRouteName() == ('admin.unit.edit') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link">
+             <i class="nav-icon fas fa-home"></i>
+              <p>
+                Unit
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.unit.create')}}" class=" {{  Route::currentRouteName() == ('admin.unit.create') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.unit.index')}}" class="{{  Route::currentRouteName() == ('admin.unit.index') ||  Route::currentRouteName() == ('admin.unit.edit') ? 'active' : '' }} nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
 
           <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.brand.create') || Route::currentRouteName() == ('admin.brand.index') || Route::currentRouteName() == ('admin.brand.edit') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
@@ -97,36 +201,7 @@
             </ul>
           </li>
 
-          <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.product.create') || Route::currentRouteName() == ('admin.product.index') || Route::currentRouteName() == ('admin.product.edit') || Route::currentRouteName() == ('admin.pageproduct') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-share"></i>
-              <p>
-                Product
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('admin.product.create')}}" class=" {{  Route::currentRouteName() == ('admin.product.create') ? 'active' : '' }} nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.product.index')}}" class="{{  Route::currentRouteName() == ('admin.product.index') ||  Route::currentRouteName() == ('admin.product.edit') ? 'active' : '' }} nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.pageproduct')}}" class="{{  Route::currentRouteName() == ('admin.pageproduct') ? 'active' : '' }} nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Product Category</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
+          
           <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.producttype.create') || Route::currentRouteName() == ('admin.producttype.index') || Route::currentRouteName() == ('admin.producttype.edit') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -144,30 +219,6 @@
               </li>
               <li class="nav-item">
                 <a href="{{route('admin.producttype.index')}}" class="{{  Route::currentRouteName() == ('admin.producttype.index') ||  Route::currentRouteName() == ('admin.producttype.edit') ? 'active' : '' }} nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>List</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item has-treeview {{ Route::currentRouteName() == ('admin.unit.create') || Route::currentRouteName() == ('admin.unit.index') || Route::currentRouteName() == ('admin.unit.edit') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-folder"></i>
-              <p>
-                Unit
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('admin.unit.create')}}" class=" {{  Route::currentRouteName() == ('admin.unit.create') ? 'active' : '' }} nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('admin.unit.index')}}" class="{{  Route::currentRouteName() == ('admin.unit.index') ||  Route::currentRouteName() == ('admin.unit.edit') ? 'active' : '' }} nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List</p>
                 </a>
@@ -199,7 +250,6 @@
             </ul>
           </li>
 
-          <li class="nav-header">MISCELLANEOUS</li>
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link" 
               onclick="event.preventDefault();

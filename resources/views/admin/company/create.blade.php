@@ -18,7 +18,7 @@
                           </ul>
                   </div>
               @endif
-              <form role="form" method="post" action="{{route('admin.company.store')}}">
+              <form role="form" method="post" action="{{route('admin.company.store')}}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="card-body">
@@ -29,8 +29,34 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="text" class="form-control" id="name" name="email" placeholder="Enter Company Email">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Contact Number</label>
+                    <input type="text" class="form-control" id="name" name="phone" placeholder="Enter Company Contact Number">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Website Link</label>
+                    <input type="text" class="form-control" id="name" name="website_link" placeholder="Enter Company website link">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="file">Logo</label>
+                      <input type="file" class="form-control-file" name="image">
+                      <small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg</font></small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="descripation">Address</label>
+                    <textarea class="textarea" name="address" rows="4" placeholder="Enter Product Descripation"></textarea>
+                  </div>
+
+                  <div class="form-group">
                     <label for="descripation">Descripation</label>
-                    <textarea class="form-control" name="descripation" id="descripation" rows="4" placeholder="Enter Company Descripation"></textarea>
+                    <input class="form-control" type="text" name="descripation" id="descripation" placeholder="Enter Company Descripation">
                   </div>
 
                   <div class="form-group">

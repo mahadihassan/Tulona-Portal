@@ -18,7 +18,7 @@
                           </ul>
                   </div>
               @endif
-              <form role="form" method="post" action="{{route('admin.brand.store')}}">
+              <form role="form" method="post" action="{{route('admin.brand.store')}}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="card-body">
@@ -31,6 +31,12 @@
                   <div class="form-group">
                     <label for="descripation">Descripation</label>
                     <textarea class="form-control" name="descripation" id="descripation" rows="4" placeholder="Enter Brand Descripation"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="file">Logo</label>
+                      <input type="file" class="form-control-file" name="image">
+                      <small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg</font></small>
                   </div>
 
                   <div class="form-group">

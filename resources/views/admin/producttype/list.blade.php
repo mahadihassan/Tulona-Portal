@@ -43,9 +43,9 @@
 		                  <td>{{$producttypes->name}}</td>
 		                  <td>
 		                  	@if($producttypes->status == 1)
-		                  		<span>Yes</span>
+		                  		<span class="badge badge-success">Yes</span>
 		                  	@else
-		                  		<span>No</span>
+		                  		<span class="badge badge-danger">No</span>
 		                  	@endif
 		                  </td>
 		                

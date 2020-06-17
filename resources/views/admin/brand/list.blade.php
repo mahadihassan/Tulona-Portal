@@ -25,13 +25,14 @@
 	                  <th>Action</th>
 	                  <th>Serial</th>
 	                  <th>Name</th>
+                      <th>Image</th>
 	                  <th>published</th>
 	                </tr>
                 </thead>
                 <tbody>
 	                @foreach($brand as $key => $brands)	
 		                <tr>
-		                  <td>
+		                  <td class="col-md-2">
                             <form action="{{route('admin.brand.destroy', $brands->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -41,11 +42,19 @@
                         	</td>
 		                  <td>{{++$key}}</td>
 		                  <td>{{$brands->name}}</td>
-		                  <td>
+                          <td>
+                            @if(empty($brands->logo))
+
+                            @else
+                                <img style="width:100%;" class="img-responsive my-2" src="{{ asset('Image/Brand') }}/{{ $brands->logo }}"></td>
+                            @endif
+                          </td>
+
+                          <td>
 		                  	@if($brands->status == 1)
-		                  		<span>Yes</span>
+		                  		<span class="badge badge-success">Yes</span>
 		                  	@else
-		                  		<span>No</span>
+		                  		<span class="badge badge-danger">No</span>
 		                  	@endif
 		                  </td>
 		                

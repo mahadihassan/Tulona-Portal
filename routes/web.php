@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -27,10 +27,12 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin'], fu
 	Route::resource('company', 'CompanyController');
 	Route::resource('metatag', 'MetaTagController');
 	Route::resource('unit', 'UnitController');
-	Route::get('/get-product', 'CategoryPageController@Pageproduct')->name('list-product');
-	Route::get('/data', 'CategoryPageController@Categoryproduct')->name('pageproduct');
-	Route::get('/report', 'CategoryPageController@Report')->name('report');
-	Route::get('/get-category', 'CategoryPageController@category')->name('categorys');
+	Route::resource('attributegroups', 'AttributeGroupController');
+	Route::resource('attributes', 'AttributeController');
+	Route::get('/get-product', 'ProductReportController@Pageproduct')->name('list-product');
+	Route::get('/data', 'ProductReportController@Categoryproduct')->name('pageproduct');
+	Route::get('/report', 'ProductReportController@Report')->name('report');
+	Route::get('/get-category', 'ProductReportController@category')->name('categorys');
 });
 
 

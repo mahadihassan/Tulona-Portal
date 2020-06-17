@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 16, 2020 at 12:45 PM
+-- Generation Time: May 09, 2020 at 10:30 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.2.28
 
@@ -44,11 +44,11 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `descripation`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'Brand1', 'Text', 1, 1, 1, '2020-04-06 03:17:53', '2020-04-12 05:17:54'),
+(1, 'Brand1', 'Text', 0, 1, 1, '2020-04-06 03:17:53', '2020-05-09 00:25:56'),
 (2, 'Brand2', 'Text', 1, 1, NULL, '2020-04-06 03:18:08', '2020-04-06 03:18:08'),
 (3, 'Brand3', 'Text', 1, 1, NULL, '2020-04-06 03:18:24', '2020-04-06 03:18:24'),
 (4, 'Brand5', 'Text', 1, 1, 1, '2020-04-12 05:16:37', '2020-04-13 03:27:54'),
-(5, 'Brand7', 'Text', 1, 1, NULL, '2020-04-13 03:27:27', '2020-04-13 03:27:27');
+(5, 'Brand6', 'Text', 1, 1, 1, '2020-04-13 03:27:27', '2020-04-26 03:29:48');
 
 -- --------------------------------------------------------
 
@@ -71,14 +71,14 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `descripation`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Category1', 'Text', 0, 1, '2020-04-06 03:16:16', '2020-04-12 05:13:22'),
+(1, 'Category1', 'Text', 0, 1, '2020-04-06 03:16:16', '2020-05-07 05:18:36'),
 (2, 'Sub Category-1', 'Text', 1, 1, '2020-04-06 03:16:37', '2020-04-12 05:11:50'),
-(3, ' Category-2', 'Text', 0, 0, '2020-04-06 03:17:02', '2020-04-06 03:17:02'),
+(3, 'Sub  Category-2', 'Text', 1, 0, '2020-04-06 03:17:02', '2020-04-06 03:17:02'),
 (4, 'Category-3', 'Text', 0, 0, '2020-04-06 03:17:24', '2020-04-06 03:17:24'),
-(5, 'Sub Category-3', 'Text', 4, 0, '2020-04-11 03:47:37', '2020-04-11 03:51:38'),
-(6, 'Sub Sub Category', NULL, 5, 0, '2020-04-12 04:45:01', '2020-04-12 04:45:01'),
+(6, 'Sub Sub Category2', NULL, 2, 0, '2020-04-12 04:45:01', '2020-04-12 04:45:01'),
 (7, 'Sub Sub Category1', 'Text', 2, 0, '2020-04-13 03:26:12', '2020-04-13 03:26:12'),
-(8, 'Sub Category-1', 'You can specify how many words should be generated right next to the word \"lorem\". For example, lorem5 will generate a 5-words dummy text.', 3, 1, '2020-04-16 05:54:55', '2020-04-16 05:54:55');
+(8, 'Sub Sub Sub Category-1', 'You can specify how many words should be generated right next to the word \"lorem\". For example, lorem5 will generate a 5-words dummy text.', 7, 1, '2020-04-16 05:54:55', '2020-04-16 05:54:55'),
+(9, 'Category-4', 'text', 0, 1, '2020-04-26 01:59:50', '2020-04-26 01:59:50');
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,12 @@ INSERT INTO `companies` (`id`, `name`, `descripation`, `status`, `created_by`, `
 (1, 'Company-1', 'Text', 1, 1, 1, '2020-04-06 03:18:49', '2020-04-16 05:59:27'),
 (2, 'Company-2', 'Text', 1, 1, NULL, '2020-04-06 03:19:03', '2020-04-06 03:19:03'),
 (3, 'Company-3', 'Text', 1, 1, 1, '2020-04-06 03:19:29', '2020-04-13 03:28:50'),
-(4, 'Company5', NULL, 1, 1, NULL, '2020-04-12 05:47:07', '2020-04-12 05:47:07');
+(4, 'Company5', NULL, 1, 1, NULL, '2020-04-12 05:47:07', '2020-04-12 05:47:07'),
+(6, 'Company-6', 'text', 0, NULL, NULL, '2020-04-26 02:48:52', '2020-04-26 02:48:52'),
+(8, 'Company-7', 'text', 0, NULL, NULL, '2020-04-26 03:10:37', '2020-04-26 03:10:37'),
+(9, 'Company-8', 'text', 0, NULL, NULL, '2020-04-26 03:11:49', '2020-04-26 03:11:49'),
+(10, 'Company-9', 'text', 0, NULL, NULL, '2020-04-26 03:14:27', '2020-04-26 03:14:27'),
+(11, 'Company11', 'text', 1, NULL, 1, '2020-04-26 03:15:42', '2020-04-26 03:24:26');
 
 -- --------------------------------------------------------
 
@@ -413,11 +418,8 @@ CREATE TABLE `metatags` (
 --
 
 INSERT INTO `metatags` (`id`, `name`, `descripation`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'data14.', NULL, 1, 1, 1, '2020-04-06 03:24:19', '2020-04-12 05:55:24'),
-(2, 'data2', 'text', 1, 1, NULL, '2020-04-06 03:24:35', '2020-04-06 03:24:35'),
-(4, 'data3', NULL, 0, NULL, NULL, NULL, NULL),
-(5, 'data4', NULL, 0, NULL, NULL, NULL, NULL),
-(7, 'tag4', NULL, 1, 1, NULL, '2020-04-12 05:53:13', '2020-04-12 05:53:13');
+(8, 'metatag1', NULL, 0, NULL, NULL, NULL, NULL),
+(9, 'metatag2', NULL, 0, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -445,7 +447,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2020_04_02_092706_create_product_types_table', 1),
 (8, '2020_04_02_101420_create_metatags_table', 1),
 (9, '2020_04_02_101455_create_companies_table', 1),
-(10, '2020_04_02_101548_create_countries_table', 1);
+(10, '2020_04_02_101548_create_countries_table', 1),
+(11, '2020_04_21_102957_create_units_table', 2);
 
 -- --------------------------------------------------------
 
@@ -476,7 +479,9 @@ CREATE TABLE `products` (
   `model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mrp` double NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attributes` json DEFAULT NULL,
+  `attribute_name` json DEFAULT NULL,
+  `attribute_value` json DEFAULT NULL,
+  `attribute_unit` json DEFAULT NULL,
   `short_descripation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `long_descripation` text COLLATE utf8mb4_unicode_ci,
   `countrys_id` int(11) NOT NULL,
@@ -492,13 +497,16 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `featured`, `categorys_id`, `product_types_id`, `brands_id`, `companies_id`, `model`, `mrp`, `image`, `attributes`, `short_descripation`, `long_descripation`, `countrys_id`, `meta_tag`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'Product-1', 0, 3, 1, 1, 1, 'Model-1', 90000, '2051055228iphone-624709_1920.jpg,1432897968smartphone-407108_1920.jpg', '{\"ram\": \"12 Gb\", \"rom\": \"10Gb\"}', 'Text', 'Long Text', 1, 'Data1', 1, 1, NULL, '2020-04-06 04:04:29', '2020-04-06 04:04:29'),
-(2, 'Product-1', NULL, 7, 1, 1, 1, 'Model-1', 90000, '1984556430iphone-624709_1920.jpg,345408439smartphone-407108_1920.jpg', '{\"ram\": \"12 Gb\", \"rom\": \"10Gb\"}', 'Text', 'Long Text', 1, 'Data1', 1, 1, NULL, '2020-04-06 04:11:36', '2020-04-06 04:11:36'),
-(3, 'Product3', NULL, 6, 1, 1, 3, 'Model', 900000, '1187423725smartphone-407108_1920.jpg', '{\"ram\": \"908\", \"battary\": \"987900\"}', 'text', 'text', 1, 'Data2,data3,data4', 1, 1, NULL, '2020-04-06 04:19:10', '2020-04-08 06:21:34'),
-(4, 'Milk', NULL, 6, 2, 1, 2, 'Model-120', 800900, '1795695078iphone-624709_1920.jpg', '{\"rom\": \"8Gb\"}', 'Text', 'Long', 1, 'data4', 1, 1, NULL, '2020-04-11 04:03:56', '2020-04-11 04:03:56'),
-(7, 'Product4', 1, 7, 3, 3, 3, 'Model -123', 9087, '1480809161iphone-624709_1920.jpg,78278604smartphone-407108_1920.jpg', '{\"ram\": \"20Gb\", \"rom\": \"20Gb\"}', '<p>text</p>', '<p>long</p>', 1, 'data4', 1, 1, NULL, '2020-04-13 05:28:10', '2020-04-13 05:28:10'),
-(8, 'Product 5', 1, 3, 3, 4, 3, 'model3', 987, '100962070business-2846221_1920.jpg', NULL, '<span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next to the word \"lorem\"</span>', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next to the word \"lorem\". For example, lorem5 will generate a 5-words dummy t</span><br></p>', 17, 'data3', 1, 1, NULL, '2020-04-15 01:28:33', '2020-04-15 01:28:33');
+INSERT INTO `products` (`id`, `name`, `featured`, `categorys_id`, `product_types_id`, `brands_id`, `companies_id`, `model`, `mrp`, `image`, `attribute_name`, `attribute_value`, `attribute_unit`, `short_descripation`, `long_descripation`, `countrys_id`, `meta_tag`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(36, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '403245596smartphone-407108_1920.jpg', '[\"ram\", \"rom\", \"battery\"]', '[\"12\", \"10\", \"89809\"]', '[\"Gb\", \"Gb\", \"amp\"]', '<p>text</p>', '<p>long text</p>', 19, 'metatag1', 1, 1, NULL, '2020-05-07 04:33:29', '2020-05-07 04:33:29'),
+(37, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '2017043193smartphone-407108_1920.jpg', '[\"ram\", \"rom\", \"display\"]', '[\"12\", \"98\", \"10\"]', '[\"Gb\", \"Gb\", \"inche\"]', '<p>text</p>', '<p>long Text</p>', 19, 'metatag1', 1, 1, NULL, '2020-05-07 04:37:35', '2020-05-07 04:37:35'),
+(38, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '1627113028smartphone-407108_1920.jpg', '[\"water\", \"mailk\", \"battery\"]', '[\"100\", \"10\", \"4000\"]', '[\"litter\", \"litter\", \"amp\"]', '<p><span style=\"font-family: Arial; font-size: 12px;\">y how many words should be generated right next to the w</span><br></p>', '<p><span style=\"font-family: Arial; font-size: 12px;\">y how many words should be generated right next to the w</span><span style=\"font-family: Arial; font-size: 12px;\">y how many words should be generated right next to the w</span><br></p>', 19, 'metatag1', 1, 1, NULL, '2020-05-07 04:39:18', '2020-05-07 04:39:18'),
+(39, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '524932236smartphone-407108_1920.jpg', '[\"hdd\", \"mailk\", \"battery\"]', '[\"100\", \"100\", \"40\"]', '[\"tb\", \"litter\", \"Amp\"]', '<p>text</p>', '<p>long Text</p>', 22, 'metatag1', 1, 1, NULL, '2020-05-07 04:40:41', '2020-05-07 04:40:41'),
+(40, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '1771368620smartphone-407108_1920.jpg', '[\"joss\", \"water\"]', '[\"100\", \"4000\"]', '[\"litter\", \"litter\"]', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', 22, 'metatag1', 1, 1, NULL, '2020-05-07 05:15:15', '2020-05-07 05:15:15'),
+(41, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '1804849138smartphone-407108_1920.jpg', '[\"joss\", \"water\"]', '[\"100\", \"4000\"]', '[\"litter\", \"litter\"]', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', 22, 'metatag1', 1, 1, NULL, '2020-05-07 05:15:33', '2020-05-07 05:15:33'),
+(42, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '94567586smartphone-407108_1920.jpg', '[\"battery\"]', '[\"100\"]', '[\"Amp\"]', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', 22, 'metatag2', 1, 1, NULL, '2020-05-07 05:16:46', '2020-05-07 05:16:46'),
+(43, 'Product-8', 1, 9, 5, 5, 4, 'model3', 90000, '573164068smartphone-407108_1920.jpg', '[\"battery\"]', '[\"100\"]', '[\"Amp\"]', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', '<p><span style=\"font-family: Arial; font-size: 12px;\">You can specify how many words should be generated right next</span><br></p>', 22, 'metatag2', 1, 1, NULL, '2020-05-07 05:16:59', '2020-05-07 05:16:59'),
+(44, 'Product Mobile', 1, 4, 3, 3, 8, 'model-2', 52345, '1290623931smartphone-407108_1920.jpg', NULL, '[null]', NULL, '<p>text</p>', '<p>long text</p>', 19, 'metatag2', 1, 1, NULL, '2020-05-08 22:52:21', '2020-05-08 22:52:21');
 
 -- --------------------------------------------------------
 
@@ -517,9 +525,16 @@ CREATE TABLE `products_attribute` (
 --
 
 INSERT INTO `products_attribute` (`id`, `name`, `created_by`) VALUES
-(1, 'ram', NULL),
-(2, 'rom', NULL),
-(3, 'battary', NULL);
+(18, 'water', NULL),
+(19, 'mailk', NULL),
+(20, 'ram', NULL),
+(21, 'rom', NULL),
+(22, 'battery', NULL),
+(23, 'hdd', NULL),
+(24, 'cash memory', NULL),
+(25, 'camara', NULL),
+(26, 'display', NULL),
+(27, 'joss', NULL);
 
 -- --------------------------------------------------------
 
@@ -549,6 +564,31 @@ INSERT INTO `product_types` (`id`, `name`, `descripation`, `status`, `created_by
 (4, 'Service 5 Product', NULL, 1, 1, NULL, '2020-04-12 03:23:18', '2020-04-12 03:23:18'),
 (5, 'payment-menu', NULL, 1, 1, NULL, '2020-04-12 05:50:13', '2020-04-12 05:50:13'),
 (6, 'Text Product', 'Text', 0, 1, NULL, '2020-04-16 06:12:05', '2020-04-16 06:12:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `units`
+--
+
+CREATE TABLE `units` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_by` tinyint(4) DEFAULT NULL,
+  `updated_by` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `units`
+--
+
+INSERT INTO `units` (`id`, `name`, `descripation`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(2, 'Gb', NULL, 1, 1, NULL, '2020-04-21 05:25:28', '2020-04-21 05:25:28'),
+(3, 'litter', 'text', 0, 1, NULL, '2020-04-26 03:35:41', '2020-04-26 03:35:50');
 
 -- --------------------------------------------------------
 
@@ -660,6 +700,12 @@ ALTER TABLE `product_types`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `units`
+--
+ALTER TABLE `units`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -680,19 +726,19 @@ ALTER TABLE `users_role`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `countries`
@@ -710,31 +756,37 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `metatags`
 --
 ALTER TABLE `metatags`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `products_attribute`
 --
 ALTER TABLE `products_attribute`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `product_types`
 --
 ALTER TABLE `product_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `units`
+--
+ALTER TABLE `units`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`

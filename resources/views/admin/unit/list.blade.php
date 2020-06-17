@@ -5,7 +5,7 @@
 		<div class="col-md-12">
 			<div class="card">
             <div class="card-header">
-              <h3 class="card-title">Brand List Table</h3>
+              <h3 class="card-title">Unit List Table</h3>
             </div>
             @if(session()->has('message'))
                 <div class="">
@@ -43,9 +43,9 @@
 		                  <td>{{$units->name}}</td>
 		                  <td>
 		                  	@if($units->status == 1)
-		                  		<span>Yes</span>
+		                  		<span class="badge badge-success">Yes</span>
 		                  	@else
-		                  		<span>No</span>
+		                  		<span class="badge badge-danger">No</span>
 		                  	@endif
 		                  </td>
 		                

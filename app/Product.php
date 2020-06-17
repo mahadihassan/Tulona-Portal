@@ -31,6 +31,8 @@ class Product extends Model
         return $this->belongsTo('App\Country', 'countrys_id');
     } 
     protected $casts = [
-        'attributes' => 'array',
+        'attribute_value' => 'array',
+        'attribute_name' => 'array',
+        'attribute_unit' => 'array',
     ];
 }

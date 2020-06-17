@@ -28,7 +28,7 @@ class BrandRequest extends FormRequest
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
             'name.required' => 'Name field is required',

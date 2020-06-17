@@ -13,30 +13,22 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('categorys_id');
-            $table->integer('product_types_id');
-            $table->integer('brands_id');
-            $table->integer('companies_id');
-            $table->string('model');
-            $table->string('mrp');
-            $table->double('price');
-            $table->string('image');
-            $table->json('attributes')->nullable();
-            $table->string('short_descripation')->nullable();
+            $table->string('name', 200)->nullable();
+            $table->tinyinteger('featured')->nullable();
+            $table->integer('categorys_id')->nullable();
+            $table->integer('product_types_id')->nullable();
+            $table->integer('brands_id')->nullable();
+            $table->integer('companies_id')->nullable();
+            $table->integer('countrys_id')->nullable();
+            $table->string('meta_tag')->nullable();
+            $table->string('model')->nullable();
+            $table->double('mrp')->default(0);
+            $table->string('short_descripation', 200)->nullable();
             $table->text('long_descripation')->nullable();
-            $table->integer('countrys_id');
-            $table->string('meta_tag');
-            $table->integer('status')->default(0);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->tinyinteger('status')->default(1);
+            $table->tinyinteger('created_by')->nullable();
+            $table->tinyinteger('updated_by')->nullable();
             $table->timestamps();
-        });
-
-        Schema::create('products_attribute', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('created_by')->nullable();
         });
     }
 

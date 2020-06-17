@@ -17,7 +17,7 @@
                           </ul>
                   </div>
               @endif
-              <form role="form" method="post" action="{{route('admin.company.update', $company->id)}}">
+              <form role="form" method="post" action="{{route('admin.company.update', $company->id)}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
@@ -27,9 +27,40 @@
                     <input type="text" class="form-control" id="name" name="name" value="{{$company->name}}">
                   </div>
 
+
+                  <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="text" class="form-control" id="name" name="email" value="{{$company->email}}">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Contact Number</label>
+                    <input type="text" class="form-control" id="name" name="phone" value="{{$company->phone}}">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="name">Website Link</label>
+                    <input type="text" class="form-control" id="name" name="website_link" value="{{$company->website_link}}">
+                  </div>
+                  @if(empty($company->logo))
+
+                  @else
+                    <img style="width:20%;" class="img-responsive my-2" src="{{ asset('Image/Company') }}/{{ $company->logo }}">
+                  @endif
+                  <div class="form-group">
+                    <label for="file">Logo</label>
+                      <input type="file" class="form-control-file" name="image">
+                      <small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg</font></small>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="descripation">Address</label>
+                    <textarea class="textarea" name="address" rows="4">{!! $company->address !!}</textarea>
+                  </div>
+
                   <div class="form-group">
                     <label for="descripation">Descripation</label>
-                    <textarea class="form-control" name="descripation" id="descripation" rows="4">{{$company->descripation}}</textarea>
+                    <input class="form-control" type="text" name="descripation" id="descripation" value="{{$company->descripation}}">
                   </div>
 
                   <div class="form-group">

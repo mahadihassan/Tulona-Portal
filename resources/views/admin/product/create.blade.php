@@ -38,31 +38,7 @@
                   </div>
                  </div>
 
-                  <div class="form-group">
-                    <label for="category_id">Parent Category <font color="red">*</font></label>
-                        <select class="form-control category" name="category_id" id="category_id">
-                            <option value="">Select Category</option>
-                            @foreach ($category as $categorys)
-                              <option value="{{$categorys->id}}">{{$categorys->name}}</option>
-                            @endforeach
-                        </select> 
-                    </div>
-
-                    <div class="form-group" id="sub_category">
-
-                    </div>
-
-                    <div class="form-group">
-                    <label for="brand_id">Product Type <font color="red">*</font></label>
-                        <select class="form-control" name="product_type">
-                            <option value="">Select Product</option>
-                            @foreach ($product_type as $products)
-                              <option value="{{$products->id}}">{{$products->name}}</option>
-                            @endforeach
-                        </select> 
-                    </div>
-
-                  <div class="form-group">
+                 <div class="form-group">
                     <label for="brand_id">Brand <font color="red">*</font></label>
                         <select class="form-control" name="brand_id">
                             <option value="">Select Brand</option>
@@ -82,6 +58,42 @@
                         </select> 
                     </div>
 
+
+                   <div class="form-group">
+                    <label for="brand_id">Product Type <font color="red">*</font></label>
+                        <select class="form-control" name="product_type">
+                            <option value="">Select Product</option>
+                            @foreach ($product_type as $products)
+                              <option value="{{$products->id}}">{{$products->name}}</option>
+                            @endforeach
+                        </select> 
+                    </div>
+
+                  <div class="form-group">
+                    <label for="category_id">Parent Category <font color="red">*</font></label>
+                        <select class="form-control category" name="category_id" id="category_id">
+                            <option value="">Select Category</option>
+                            @foreach ($category as $categorys)
+                              <option value="{{$categorys->id}}">{{$categorys->name}}</option>
+                            @endforeach
+                        </select> 
+                    </div>
+
+
+                    <div class="form-group" id="sub_category">
+
+                    </div>
+
+                   <div class="form-group">
+                    <label for="brand_id">Country <font color="red">*</font></label>
+                        <select class="form-control" name="country">
+                            <option value="">Select Country</option>
+                            @foreach ($country as $countrys)
+                              <option value="{{$countrys->id}}">{{$countrys->name}}</option>
+                            @endforeach
+                        </select> 
+                    </div>
+                   
                   <div class="form-group">
                     <label for="name">Model <font color="red">*</font></label>
                     <input type="text" class="form-control" name="model" value="{{old('model')}}" placeholder="Enter Product Model">
@@ -92,36 +104,53 @@
                     <input type="number" class="form-control" id="mrp" name="mrp" value="{{old('mrp')}}" placeholder="Enter Product MRP">
                   </div>
 
-                  <div class="form-group">
-                    <label for="file">Product Image input <font color="red">*</font></label>
-                      <input type="file" class="form-control-file" name="image[]" multiple="" id="file">
-                      <small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg and maxsimum size 2 MB</font></small>
-                  </div>
-
-                  <div class="select2-purple" id="field_add">
-                        
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="descripation">Short Descripation <font color="red">*</font></label>
-                    <textarea class="textarea" name="short_descripation" id="descripation" rows="4" placeholder="Enter Product Descripation"></textarea>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="descripation">Long Descripation</label>
-                    <textarea class="textarea" name="long_descripation" rows="4" placeholder="Enter Product Descripation"></textarea>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="brand_id">Country <font color="red">*</font></label>
-                        <select class="form-control" name="country">
-                            <option value="">Select Country</option>
-                            @foreach ($country as $countrys)
-                              <option value="{{$countrys->id}}">{{$countrys->name}}</option>
-                            @endforeach
-                        </select> 
+                    <div class="container-fluid">
+                      <div class="card card-secondary">
+                        <div class="card-header">
+                          <h3 class="card-title text-center">Product Image</h3>
+                        </div>
+                          <div class="card-body">
+                            <div class="form-group" id="product_image">
+                                
+                            </div>
+                        </div>
+                      </div>
                     </div>
 
+                  
+
+                  <div class="container-fluid">
+                    <div class="card card-secondary">
+                      <div class="card-header">
+                        <h3 class="card-title text-center">Product Attribute</h3>
+                      </div>
+                    <div class="card-body">
+                      <div class="form-group" id="product_attribute">
+                            
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="container-fluid">
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <h3 class="card-title text-center">Product Video</h3>
+                  </div>
+                  <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                      <label for="name">Title</label>
+                        <input type="text" class="form-control" name="video_title" value="{{old('title')}}" placeholder="Enter Product Video Title">
+                      </div>
+
+                       <div class="form-group col-md-6">
+                        <label for="name">Link</label>
+                        <input type="text" class="form-control" name="video_link" value="{{old('video_link')}}" placeholder="Enter Product Video Link">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
                   <div class="form-group">
                     <div class="select2-purple">
@@ -133,7 +162,17 @@
                           @endforeach
                         </select>
                       </div>
-                </div>
+                  </div>
+                    
+                  <div class="form-group">
+                    <label for="descripation">Short Descripation <font color="red">*</font></label>
+                    <textarea class="form-control" rows="3" name="short_descripation" id="descripation" rows="4" placeholder="Enter Short Descripation"></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="descripation">Long Descripation</label>
+                    <textarea class="textarea" name="long_descripation" rows="4" placeholder="Enter Long Descripation"></textarea>
+                  </div>
 
                   <div class="form-group">
                     <label>Status</label>
@@ -203,77 +242,135 @@
 
 <script>
 $(document).ready(function(){
- var count = 1;
- dynamic_field(count);
-function dynamic_field(number)
-{
-  html = '<div class="row data">';
-    html += '<div class= "col-md-3">';
-      html += '<label>Field Name</label>';
-      html += '<select class="form-control select2" data-dropdown-css-class="select2-purple"   multiple="multiple" name="att_name[]" placeholder="Field Name">';
-      @foreach($attribute as $value)
-      html +='<option value="{{$value->name}}">{{$value->name}}</option>';
+  var count = 1;
+  dynamic_field(count);
+  function dynamic_field(number)
+  {
+    html = '<div class="row data">';
+    html += '<div class= "col-md-2">';
+      html += '<label>Attribute Group</label>';
+      html += '<select class="form-control" name="attributeGroup[]">';
+      html +='<option value="">Select Attribute Group</option>';
+     @foreach($attributeGroup as $value)
+       html +='<option value="{{$value->id}}">{{$value->name}}</option>';
      @endforeach
       html += '</select>';
       html += '</div>';
-      html += '<div class="col-md-3">'
-      html += '<label>Field Value</label>';
-      html += '<input type="text" name="att_value[]" class="form-control" placeholder="Value"/>';
+      html += '<div class="col-md-2">'
+      html += '<label>Attribute </label>';
+      html += '<select class="form-control" name="attribute[]">';
+      html +='<option value="">Select Attribute</option>';
+      @foreach($attribute as $attributes)
+      html +='<option value="{{$attributes->id}}">{{$attributes->name}}</option>';
+     @endforeach
+      html += '</select>';
       html += '</div>'
       html += '<div class= "col-md-2">';
       html += '<label>Unit</label>';
-      html += '<select class="form-control select2" data-dropdown-css-class="select2-purple"   multiple="multiple" name="att_unit[]">';
-    @foreach($unit as $units)
-      html +='<option value="{{$units->name}}">{{$units->name}}</option>';
-     @endforeach
+      html += '<select class="form-control" name="unit[]">';
+      html +='<option value="">Select Unit</option>';
+      @foreach($unit as $units)
+        html +='<option value="{{$units->id}}">{{$units->name}}</option>';
+      @endforeach
       html += '</select>';
       html += '</div>';
+      html += '<div class="col-md-2">'
+      html += '<label>Price</label>';
+      html += '<input class="form-control" type="number" name="price[]" placeholder="price">';
+      html += '</div>'
+      html += '<div class="col-md-1">'
+      html += '<label>Quantity</label>';
+      html += '<input class="form-control" type="number" name="qty[]" placeholder="qty">';
+      html += '</div>'
      
     if(number > 1)
     {
-      html += '<div class="col-md-2">';
+      html += '<div class="col-md-1">';
       html += '<button type="button" name="add" id="add" class="btn btn-success btn-block py-2 my-4">Add</button>';
       html += '</div>';
       html += '<div class="col-md-2">';
       html += '<button type="button" id="remove" class="btn btn-danger btn-block py-2 my-4">Remove</button>';
       html += '</div>';
-      $('#field_add').append(html);
-      $(function () {
-        $('.select2').select2({
-          tags: true
-        })
-    });
+      $('#product_attribute').append(html);
     }
     else
     {
-      html += '<div class="col-md-4">';  
+      html += '<div class="col-md-2">';  
       html += '<button type="button" name="add" id="add" class="btn btn-success btn-block py-2 my-4">Add</button>';
       html += '</div>'
-      $('#field_add').html(html);
-      $(function () {
-        $('.select2').select2({
-           tags: true
-        })
+      $('#product_attribute').html(html);    
+    }
 
-    });
-  }
 }
-$(document).on('click', '#add', function(){
+  $(document).on('click', '#add', function(){
     count++;
     dynamic_field(count);
- });
+  });
 
- $(document).on('click', '#remove', function(){
+  $(document).on('click', '#remove', function(){
     count--;
     $(this).closest(".data").remove();
  });
+
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+  var count = 1;
+  dynamic_field(count);
+  function dynamic_field(number)
+  {
+    html = '<div class="row images">';
+      html += '<div class="col-md-4">'
+      html += '<label>Image </label>';
+      html += '<input type="file" class="form-control-file"  name="image[]">';
+      html += '<small class="form-text text-muted"><font color="red">image must be jpeg,png,jpg,gif,svg and maxsimum size 2 MB</font></small>';
+      html += '</div>'
+      html += '<div class="col-md-4">'
+      html += '<label>Title</label>';
+      html += '<input class="form-control" type="text" name="image_title[]" placeholder="Enter Product Image Title">';
+      html += '</div>'
+     
+    if(number > 1)
+    {
+      html += '<div class="col-md-2">';
+      html += '<button type="button" name="add" id="add_image" class="btn btn-success btn-block py-2 my-4">Add</button>';
+      html += '</div>';
+      html += '<div class="col-md-2">';
+      html += '<button type="button" id="remove_image" class="btn btn-danger btn-block py-2 my-4">Remove</button>';
+      html += '</div>';
+      $('#product_image').append(html);
+    }
+    else
+    {
+      html += '<div class="col-md-2">';  
+      html += '<button type="button" name="add" id="add_image" class="btn btn-success btn-block py-2 my-4">Add</button>';
+      html += '</div>'
+      $('#product_image').html(html);
+    }
+}
+
+  $(document).on('click', '#add_image', function(){
+    count++;
+    dynamic_field(count);
+  });
+
+  $(document).on('click', '#remove_image', function(){
+    count--;
+    $(this).closest(".images").remove();
+  });
+
 });
 </script>
 <script>
   $(function () {
-    // Summernote
+    $('.select2').select2({
+      tags: true
+    });
     $('.textarea').summernote()
-  })
+  });
 </script>
 <link rel="stylesheet" href="{{asset('backend/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('backend/select2/css/select2-bootstrap4.min.css')}}">

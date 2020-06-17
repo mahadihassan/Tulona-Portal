@@ -90,7 +90,7 @@ class UnitController extends Controller
             'name' => $request->input('name'),
             'descripation' => $request->input('descripation'),
             'status' => $request->input('published'),
-            'created_by' => $user->id,
+            'updated_by' => $user->id,
         ];
         $unit->update($data);
         session()->flash('message', 'Unit Update Successfully');

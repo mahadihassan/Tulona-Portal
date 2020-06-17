@@ -62,9 +62,9 @@
 		                  <td>{{parentcategory($categorys->category_id)}}</td>
 		                  <td>
 		                  	@if($categorys->status == 1)
-		                  		<span>Yes</span>
+		                  		<span class="badge badge-success">Yes</span>
 		                  	@else
-		                  		<span>No</span>
+		                  		<span class="badge badge-danger">No</span>
 		                  	@endif
 		                  </td>
 		                

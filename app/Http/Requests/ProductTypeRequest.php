@@ -27,7 +27,7 @@ class ProductTypeRequest extends FormRequest
             'name'=> 'required',
         ];
     }
-    public function message()
+    public function messages()
     {
         return [
             'name.required' => 'Name field is required',
